@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home page{% endblock %}</title>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+
+        .navbar {
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Flag_of_Bangladesh_%2816-9%29.png/1200px-Flag_of_Bangladesh_%2816-9%29.png') no-repeat center center / cover;
+            overflow: hidden;
+            padding: 10px 0;
+            color: white;
+            position: fixed; /* Ensure the navbar is fixed at the top */
+            top: 0;
+            margin-bottom: 150px;
+            width: 100%;
+            z-index: 1000; /* Ensure it appears above other content */
+        }
+
+        .navbar h1 {
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-link {
+            background-color: #9dffd5;
+            color: black;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-link:hover {
+            background-color: #88cca5;
+        }
+
+        .container {
+            flex: 1; /* This makes the container take up the remaining space */
+            width: 100%;
+            max-width: 1200px; /* Ensures content does not stretch too wide on large screens */
+            margin: 20px auto;
+            padding: 0.5rem;
+            box-sizing: border-box; /* Ensures padding does not affect overall width */
+        }
+
+        footer {
+            position: fixed;
+            width: 100%;
+            top: 91%;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .sponsors {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            height: 60px; /* Adjust based on your logo heights */
+        }
+
+        .sponsor-logo {
+            display: flex;
+            animation: slide 60s linear infinite; /* Increased duration and linear direction */
+        }
+
+        .sponsor-logo img {
+            height: 40px;
+            margin: 0 10px;
+        }
+
+        .web-name {
+            color: white;
+            font-size: 30px;
+        }
+
+        /* Animation keyframes for continuous slide */
+        @keyframes slide {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar h1 {
+                font-size: 24px;
+            }
+
+            .nav-link {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding-top: 80px; /* Increase padding for smaller screens if needed */
+            }
+
+            .sponsors {
+                flex-direction: column;
+                align-items: center;
+                height: auto; /* Adjust height for better layout */
+            }
+
+            .sponsor-logo {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 20px;
+            }
+
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .container {
+                padding-top: 100px; /* Increase padding for the smallest screens */
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false">
+<nav class="navbar">
+    <div class="container-fluid">
+        <h1 class="web-name">Tax & VAT Live Robot - Financial Year 2024-2025</h1>
+        <div>
+            <a class="nav-link" href="{% url 'home' %}">Home/Search</a>
+            <a class="nav-link" href="{% url 'aboutus' %}">About us</a>
+            <a class="nav-link" href="{% url 'mission' %}">Mission & Vision</a>
+            <a class="nav-link" href="{% url 'how' %}">How it Works</a>
+            <a class="nav-link" href="{% url 'use' %}">How to Use</a>
+            <a class="nav-link" href="{% url 'what' %}">What to do after VDS & TDS</a>
+            <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+            {% if not user.is_authenticated %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <span class="nav-link">Welcome, {{ user.name }}!</span>
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+
+{% if sponsors %}
+<section class="sponsors">
+    <div class="sponsor-logo">
+        {% for sponsor in sponsors %}
+        <img src="{{ sponsor.logo.url }}" alt="Sponsor logo">
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<footer>
+    <p>&copy; 2024 Musyab Iqbal. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var navLinks = document.querySelectorAll('.nav-link');
+
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinks.forEach(function(lnk) {
+                    lnk.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}To do after VDSTDS{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div class="alert alert-dark" role="alert">
+            <ul class="messages" style="color:darkgreen; font-size:30px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <style>
+        .after-sec {
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 20px; /* Add padding for better spacing */
+            background-color: #ffffff; /* White background for contrast */
+            position: relative; /* Ensure relative positioning for absolute positioning of images */
+        }
+
+        .task-section-1, .task-section-2 {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .law-ref-btn {
+            border-radius: 10px;
+            justify-content: center;
+            align-content: center;
+            cursor: pointer;
+            width: 125px;
+            height: 50px;
+            background-color: dodgerblue;
+            color: white;
+            text-align: center;
+            line-height: 50px; /* Vertically center the text */
+            display: inline-block;
+            margin-top: 20px; /* Add space above the button */
+            position: relative; /* Ensure proper positioning for the image */
+            z-index: 0;
+        }
+
+        .law-ref-btn:hover {
+            background-color: #1e90ff;
+        }
+
+        .reference-image {
+            width: 500px; /* Increase the width */
+            height: auto;
+            display: none; /* Hide by default */
+            position: absolute; /* Position relative to the button */
+            bottom: 60px; /* Position above the button */
+            left: 50%; /* Center the image */
+            transform: translateX(-50%); /* Center the image */
+            z-index: 1000; /* Ensure it appears above all other content */
+        }
+
+        .law-ref-btn:hover + .reference-image {
+            display: block; /* Show image on hover */
+        }
+
+        /* Responsive container */
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        /* Adjust layout for smaller screens */
+        @media (max-width: 768px) {
+            .messages {
+                font-size: 20px;
+                margin-left: 0;
+            }
+
+            .law-ref-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .reference-image {
+                width: 100%; /* Make the image responsive */
+                max-width: none; /* Remove the max-width */
+                position: static; /* Reset position for smaller screens */
+                transform: none; /* Reset transform for smaller screens */
+            }
+        }
+    </style>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container mt-5 after-sec">
+        <div class="task-section-1">
+            <h1><b style="color: deepskyblue">To do After VDS</b></h1>
+            <ul>
+                <li>
+                    <h4>Deposit to govt. treasury within 7th of next following month;</h4>
+                </li>
+                <li>
+                    <h4>Issue certificate (Mushok 6.6) to the service provider within 3 days after deposit to treasury;</h4>
+                </li>
+                <li>
+                    <h4>Show the deducted amount of VAT in your VAT return under note 24 and</h4>
+                </li>
+                <li>
+                    <h4>Include the treasury challan under note 58 of your VAT Return.</h4>
+                </li>
+            </ul>
+            <div class="law-ref-btn">VAT Law Ref.</div>
+            <img src="{% static 'media/images/VDS.png' %}" class="reference-image">
+        </div>
+
+        <hr/>
+        <div class="task-section-2">
+            <h1><b style="color: deepskyblue">To do After TDS</b></h1>
+            <ul>
+                <li>
+                    <h4>Deposit to the govt. treasury within 02 weeks of the next following month (except for June);</h4>
+                </li>
+                <li>
+                    <h4>Issue certificate to beneficiary well in advance before he submits his annual tax return.</h4>
+                </li>
+            </ul>
+            <div class="law-ref-btn">Tax Law Ref.</div>
+            <img src="{% static 'media/images/TDS.png' %}" class="reference-image">
+        </div>
+    </div>
+{% endblock %}

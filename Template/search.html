@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% block title %}Search results{% endblock %}
+{% block head %}
+    <style>
+    </style>
+{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div class="alert alert-dark" role="alert">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+        <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Search</h5>
+                        <form action="{% url 'search' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="search" class="form-control" placeholder="Search" aria-label="Search" id="search" name="search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="suggestions-box" id="suggestions-box"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        {% if search_results %}
+                            {% for i in search_results %}
+                                <div class="result-item">
+                                    <h3>{{ i.name }}</h3>
+                                    <hr>
+                                    <div class="details">
+                                        <div class="vat-info">
+                                            <h3>VAT:</h3>
+                                            <p><span class="info-label">Service Code:</span> <span class="info-value">{{ i.vat_Service_code }}</span></p>
+                                            <p><span class="info-label">Rate:</span> <span class="info-value">{{ i.vat_VAT_rate }}</span></p>
+                                            <p><span class="info-label">VDS:</span> <span class="info-value">{{ i.vat_VDS }}</span></p>
+                                            {% if i.vat_remarks1 %}
+                                                <p><span class="info-label">Remarks1:</span> <span class="info-value">{{ i.vat_remarks1 }}</span></p>
+                                            {% endif %}
+                                            {% if i.vat_remarks2 %}
+                                                <p><span class="info-label">Remarks2:</span> <span class="info-value">{{ i.vat_remarks2 }}</span></p>
+                                            {% endif %}
+                                            {% if i.vat_image %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">VAT Ref. 1</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.vat_image.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if i.vat_image1 %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">VAT Ref. 2</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.vat_image1.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if i.vat_image2 %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">VAT Ref. 3</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.vat_image2.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="tax-info">
+                                            <h3>Income Tax:</h3>
+                                            <p><span class="info-label">Section:</span> <span class="info-value">{{ i.tax_Section }}</span></p>
+                                            <p><span class="info-label">Sub-Section / Rule:</span> <span class="info-value">{{ i.tax_subsection }}</span></p>
+                                            <p><span class="info-label">TDS Rate:</span> <span class="info-value">{{ i.tax_TDS_rate }}</span></p>
+                                            {% if i.tax_remark1 %}
+                                                <p><span class="info-label">Remarks1:</span> <span class="info-value">{{ i.tax_remark1 }}</span></p>
+                                            {% endif %}
+                                            {% if i.tax_remark2 %}
+                                                <p><span class="info-label">Remarks2:</span> <span class="info-value">{{ i.tax_remark2 }}</span></p>
+                                            {% endif %}
+                                            {% if i.tax_image1 %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">Tax Ref. 1</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.tax_image1.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if i.tax_image2 %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">Tax Ref. 2</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.tax_image2.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                            {% if i.tax_image3 %}
+                                                <div class="image-preview">
+                                                    <a href="#" class="btn btn-primary hover-trigger">Tax Ref. 3</a>
+                                                    <div class="hover-show">
+                                                        <img src="{{ i.tax_image3.url }}" alt="Service Image">
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <a href="{% url 'home' %}" class="btn btn-primary">Look for Another Topics</a>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-results">
+                                <h2>No Matching Service Found.</h2>
+                                <p>You may insert another appropriate service topics.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#search').on('input', function () {
+                updateSuggestions();
+            });
+
+            $('#search').on('keydown', function (event) {
+                if (event.keyCode === 8) { // Backspace key
+                    updateSuggestions();
+                }
+            });
+
+            function updateSuggestions() {
+                var search_term = $('#search').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "get_spelling_suggestions" %}',
+                    data: {'search_term': search_term, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    dataType: 'json',
+                    success: function (response) {
+                        var suggestions = response.suggestions;
+                        var suggestionsBox = $('#suggestions-box');
+                        suggestionsBox.empty();
+                        if (suggestions.length > 0) {
+                            $.each(suggestions, function (index, suggestion) {
+                                suggestionsBox.append('<div class="suggestion-item">' + suggestion + '</div>');
+                            });
+                            suggestionsBox.show();
+                        } else {
+                            suggestionsBox.hide();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            }
+
+            $(document).on('click', '.suggestion-item', function () {
+                var suggestion = $(this).text();
+                $('#search').val(suggestion);
+                $('#suggestions-box').hide();
+            });
+
+            $(document).on('click', function (event) {
+                if (!$(event.target).closest('#suggestions-box').length && !$(event.target).is('#search')) {
+                    $('#suggestions-box').hide();
+                }
+            });
+
+            $(document).on('mouseenter', '.hover-trigger', function () {
+                $(this).next('.hover-show').show();
+            });
+
+            $(document).on('mouseleave', '.hover-trigger', function () {
+                $(this).next('.hover-show').hide();
+            });
+        });
+    </script>
+
+    <style>
+        .messages {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .vat-info, .tax-info {
+            flex: 1;
+        }
+
+        .info-label {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .info-value {
+            color: #28a745;
+        }
+
+        .image-preview {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .hover-show {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ced4da;
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .hover-trigger:hover + .hover-show {
+            display: block;
+        }
+
+        .no-results {
+            text-align: center;
+            margin-top: 50px;
+            color: #dc3545;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 5px 20px;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+    </style>
+{% endblock %}

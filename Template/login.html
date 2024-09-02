@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<div class="container" style="display: flex; justify-content: center; align-items: center; height: 40vh; /* Adjusted height */">
+    <div style="width: 100%; max-width: 400px;">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div style="margin-bottom: 15px;"> <!-- Reduced margin -->
+                <label for="username" style="display: block; margin-bottom: 5px;"><h4>Login ID</h4></label>
+                <input type="text" style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;" id="username" name="phone" placeholder="11 Digit Mobile No.">
+            </div>
+            <br/>
+            <div style="margin-bottom: 15px;"> <!-- Reduced margin -->
+                <label for="password" style="display: block; margin-bottom: 5px;"><h4>Password</h4></label>
+                <input type="password" style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 50%; padding: 12px 0; font-size: 1.2rem; border:none; border-radius:15px; background-color:dodgerblue">Login</button>
+        </form>
+        <div id="error-message-box" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px 20px; margin-top: 20px; border: 1px solid #f5c6cb; border-radius: 5px; font-size: 16px; text-align: center;">
+            <ul style="list-style: none; padding: 0;">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        var messageBox = document.getElementById('error-message-box');
+        if (messageBox.getElementsByTagName('li').length > 0) {
+            messageBox.style.display = 'block';
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div style="background-color: #f8f9fa; color: darkgreen; padding: 15px; margin-bottom: 15px; font-size: 24px; text-align: center;">
+            <ul class="messages" style="list-style: none; padding: 0; text-align: center;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+        <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container" style="text-align: center;">
+        <h1 style="color: deepskyblue; margin-bottom: 15px;"><b>About us</b></h1>
+        <hr/>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            <div style="flex: 0 1 350px; margin-bottom: 15px;">
+                <div style="border: 1px solid #ccc; border-radius: 5px; overflow: hidden; text-align: left;">
+                    <img src="{% static 'media/images/Bald_man.jpg' %}" style="width: 100%; display: block; height: 300px; object-fit: cover;">
+                    <div style="padding: 10px;">
+                        <h3 style="margin-top: 0; font-size: 18px;">Dr. Muhd. Mustafa Iqbal</h3>
+                        <p>Director, VAT & Income Tax Wing.<br/>K.M.Hasan & Co., Chartered Accountants.<br/>- Legal Support Provider.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="flex: 0 1 350px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 20px;">
+                <div>
+                    <h3 style="margin-top: 0; color: black;"><b>HOMEMADE <br/>TAX ROBOT</b></h3>
+                </div>
+            </div>
+
+            <div style="flex: 0 1 350px; margin-bottom: 15px;">
+                <div style="border: 1px solid #ccc; border-radius: 5px; overflow: hidden; text-align: left;">
+                    <img src="{% static 'media/images/carrotYTz.jpg' %}" style="width: 100%; display: block; height: 300px; object-fit: cover;">
+                    <div style="padding: 10px;">
+                        <h3 style="margin-top: 0; font-size: 18px;">Musyab Iqbal</h3>
+                        <p>Student of Class 5. <br/>- Software Development & IT Support Provider. (MOST CREDITS)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+{% endblock %}

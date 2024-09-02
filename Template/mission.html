@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Mission & Vision{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div class="alert alert-dark" role="alert">
+            <ul class="messages" style="color:darkgreen; margin-left: 500px; font-size:30px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <style>
+        .container {
+            margin-top:0;
+        }
+    </style>
+    <div class="container">
+        <h1><b style="color: deepskyblue">Mission & Vision</b></h1>
+        <hr/>
+        <p>
+            <h1><b>মুখ বন্ধ</b></h1>
+            <h2 style="color: green;">
+            ভিডিএস, টিডিএস এবং আইনের অন্যান্য গুরুত্বপূর্ণ বিষয়গুলি একই প্ল্যাটফরমে সংক্ষিপ্ত আকারে নিয়ে আসার জন্য আমি
+            কয়েক বছর ধরেই কাজ করিতেছিলাম যাতে বই থেকে আইন খুঁজে খুঁজে বের করে পড়তে যে সময় ব্যয় হয়  তার সাশ্রয় হয় এবং
+            ভ্যাট ও ইনকাম ট্যাক্স আইনের সঠিক আনুষঙ্গিক বিধানগুলিও অনায়াসেই আমাদের সামনে চলে আসে ।
+            এই বিষয়টি অনেক সংবেদনশীল, এনবিআর কর্তৃক জারীকৃত কোন আদেশের প্রতিফলন যদি এই পোর্টালে প্রয়োজন হয়, তাহলে তার
+            তাৎক্ষনিক বাস্তবায়ন অতীব জরুরী । তাই, সফটওয়্যার এর কাজগুলি করার জন্য মহান আল্লাহর অশেষ রহমতে আমার স্কুল
+            পড়ুয়া একমাত্র ছেলেকেই হাতিয়ার হিসাবে গড়ে তুলতে পেরেছি । পোর্টালটি খুব একটা দৃষ্টি নন্দন করতে না পারলেও ভ্যাট
+            এবং ইনকাম ট্যাক্সের আইনের দিক হইতে তথ্যবহুল করতে পেরেছি বলে আমার বিশ্বাস । এই পোর্টালটি আরও তথ্যবহুল করার
+            ক্ষেত্রে আমাদের দেশের ট্যাক্সপেয়ারদের যদি কোন পরামর্শ থেকে থাকে তাহলে তা ই-মেইলের মাধ্যমে জানানোর জন্য সবিনয়
+            অনুরোধ রইল । ই-মেইলঃ taxbaybd@gmail.com
+            </h2>
+            <h2 style="color: blue;">
+                I have been trying since long to bring the VDS, TDS and other important tax related legal matters under a single
+                platform so that we could save our time searching in books and get the important & relevant legal references
+                drawn from VAT & Income Tax Law on a single click. The portal is updated within a few hours following
+                publication of any relevant order by NBR. Although the portal could not be made very good at look, I
+                believe, I could made it very informative from VAT and Income Tax law perspectives. If you feel to share
+                your feedback to improve in legal content related matters, you are most welcome to share it to my e-mail:
+                taxbaybd@gmail.com
+            </h2>
+        </p>
+    </div>
+        <style>
+        .container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        @media (min-width: 475px) {
+            .container {
+                max-width: 475px;
+            }
+        }
+        @media (min-width: 640px) {
+            .container {
+                max-width: 640px;
+            }
+        }
+        @media (min-width: 768px) {
+            .container {
+                max-width: 768px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1024px;
+            }
+        }
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1280px;
+            }
+        }
+        @media (min-width: 1536px) {
+            .container {
+                max-width: 1536px;
+            }
+        }
+    </style>
+{% endblock %}

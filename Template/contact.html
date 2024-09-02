@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div class="alert alert-dark" role="alert">
+            <ul class="messages" style="color:darkgreen; margin-left: 500px; font-size:30px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+        <h1><b style="color: deepskyblue; margin-left: 150px;">Contact Us</b></h1>
+        <hr/>
+        <div>
+            <h2 style="color: green; margin-left: 150px;">
+                <br/>
+                <b>Address:</b> House - 6, Road - 1, Sector - 2, Block - D, Aftabnagar, Badda, Dhaka
+                <br/>
+                <b>Phone:</b> 01977770157
+                <br/>
+                <b>Email:</b> taxbaybd@gmail.com
+                <br/>
+            </h2>
+        </div>
+    </div>
+{% endblock %}

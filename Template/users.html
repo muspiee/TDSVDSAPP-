@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Potential Users{% endblock %}
+{% block body %}
+{% if messages %}
+<div class="alert alert-dark" role="alert">
+    <ul class="messages" style="color:darkgreen; margin-left: 500px'; font-size:30">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+    <style>
+        .con {
+            display: flex;
+            justify-self: center;
+        }
+    </style>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potential Users</title>
+</head>
+<body>
+<div class="container">
+    <h1><b style="color: deepskyblue; margin-left: 150px;">Potential users of this site</b></h1>
+        <hr/>
+    <div class="con">
+        {% for i in user %}
+            <img src="{{ i.img.url }}" width="350px">
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

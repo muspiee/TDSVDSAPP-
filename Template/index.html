@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block head %}
+<style>
+    .container {
+        margin: 50px auto; /* Centers the container with top and bottom margin */
+        padding: 20px;
+        background: #ffffff; /* White background for the container */
+        border: 1px solid #ccc; /* Subtle border */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Soft shadow for depth */
+        text-align: center; /* Aligns text to the center */
+    }
+
+    h3 {
+        color: #007BFF; /* Stylish blue for headings */
+        font-size: 1.6rem; /* Slightly larger font size for heading */
+        margin-bottom: 20px; /* Space below the heading */
+    }
+
+    h1, h2, p {
+        font-size: 2rem;
+        color: #333;
+    }
+
+    /* Style adjustments for form elements */
+    input[type="text"], textarea {
+        width: 100%; /* Width relative to its container */
+        padding: 12px; /* Comfortable padding inside the input */
+        margin-bottom: 20px; /* Space below each input */
+        border: 1px solid #ddd; /* Light border for inputs */
+        border-radius: 5px; /* Rounded corners for the inputs */
+        font-size: 1rem; /* Adequate font size for readability */
+    }
+
+    .btn {
+        padding: 10px 20px;
+        background-color: #28a745; /* Green color, easy on the eye */
+        color: white; /* White text for contrast */
+        border: none; /* No border */
+        border-radius: 5px; /* Rounded corners */
+        font-size: 1.1rem; /* Slightly larger button text */
+        cursor: pointer; /* Pointer cursor on hover */
+        width: auto; /* Auto width based on content size */
+        display: inline-block; /* Allows setting width */
+    }
+
+    .timer {
+        font-size: 0.9rem; /* Smaller font size for timer */
+        color: #555; /* Dark grey for readable contrast */
+        margin-top: 20px; /* Space above the timer text */
+    }
+
+    .alert {
+        background-color: #f4f4f4;
+        color: darkgreen;
+        padding: 15px;
+        margin-top: 20px;
+        border: 1px solid darkgreen;
+        border-radius: 5px;
+    }
+
+    .alert ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .alert li {
+        margin-top: 5px;
+    }
+
+    .suggestions-box {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        display: none; /* Initially hidden */
+        position: absolute;
+        width: 100%; /* Full width of the container */
+        left: 0; /* Align with the input */
+        top: 70px; /* Adjust top position based on your layout */
+        z-index: 1000; /* Ensure it's above other content */
+    }
+
+    .suggestion-item {
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .suggestion-item:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .container {
+            margin: 20px auto; /* Less margin on smaller screens */
+            padding: 15px; /* Less padding on smaller screens */
+        }
+
+        h3 {
+            font-size: 1.4rem; /* Smaller font size for heading */
+        }
+
+        h1, h2, p {
+            font-size: 1.5rem; /* Smaller font size for text */
+        }
+
+        input[type="text"], textarea {
+            padding: 10px; /* Less padding inside the input */
+            font-size: 0.9rem; /* Smaller font size for readability */
+        }
+
+        .btn {
+            padding: 8px 16px; /* Smaller padding for the button */
+            font-size: 1rem; /* Smaller button text */
+        }
+
+        .suggestions-box {
+            top: 60px; /* Adjust top position based on your layout */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            margin: 10px auto; /* Even less margin on smaller screens */
+            padding: 10px; /* Even less padding on smaller screens */
+        }
+
+        h3 {
+            font-size: 1.2rem; /* Even smaller font size for heading */
+        }
+
+        h1, h2, p {
+            font-size: 1.2rem; /* Even smaller font size for text */
+        }
+
+        input[type="text"], textarea {
+            padding: 8px; /* Even less padding inside the input */
+            font-size: 0.8rem; /* Even smaller font size for readability */
+        }
+
+        .btn {
+            padding: 6px 12px; /* Even smaller padding for the button */
+            font-size: 0.9rem; /* Even smaller button text */
+        }
+
+        .suggestions-box {
+            top: 50px; /* Adjust top position based on your layout */
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+{% if messages %}
+<div class="alert">
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+        <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<div class="container">
+    {% if user.is_authenticated %}
+    {% if not user.is_paid %}
+    <h3>Your Account is not activated or is expired. <a href="{% url 'renew_account' %}">Please activate/renew your account.</a></h3>
+    {% else %}
+    <h3 style="color: deepskyblue"><b>Search for TDS-VDS & other tax-related matters:</b></h3>
+    <div class="position-relative" style="position: relative;">
+        <form action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <input class="form-control" type="search" placeholder="Write desired service topics" aria-label="Search" id="search" name="search" style="width: 100%; height: 50px;">
+            <button class="btn" style="border:none; border-radius:5px; background-color:dodgerblue; cursor:pointer; width:100%; height:40px; margin-top: 10px;" type="submit">Search</button>
+            <div class="suggestions-box" id="suggestions-box"></div>
+        </form>
+        <h4>Your Account expires in:</h4>
+        <div id="timer" class="timer">180 seconds remaining</div>
+    </div>
+    {% endif %}
+    {% else %}
+    <h1 style="font-size: 36px">
+        <pre>
+            <b>
+                <span style="color: deepskyblue">Use Tax & VAT Live Robot</span>
+                      Save Your Time
+                           <span style="color: mediumpurple">& Get</span>
+                <span style="color: darkorange">Instant Appropriate Legal Ref.</span>
+            </b>
+        </pre>
+    </h1>
+    {% endif %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var timeLeft = 180; // Time left in seconds for the countdown
+        var endTime = localStorage.getItem('endTime');
+
+        if (!endTime) {
+            endTime = Date.now() + timeLeft * 1000;
+            localStorage.setItem('endTime', endTime);
+        }
+
+        function updateTimer() {
+            var msLeft = endTime - Date.now();
+            if (msLeft >= 0) {
+                var secondsLeft = Math.floor(msLeft / 1000);
+                var minutes = Math.floor(secondsLeft / 60);
+                var hours = Math.floor(minutes / 60);
+                var days = Math.floor(hours / 24);
+                var months = Math.floor(days / 30);
+                var years = Math.floor(months / 12);
+
+                months %= 12;
+                days %= 30;
+                hours %= 24;
+                minutes %= 60;
+                secondsLeft %= 60;
+
+                var timeString = years + " years, " + months + " months, " + days + " days, " +
+                                 hours + " hours, " + minutes + " minutes, " + secondsLeft + " seconds";
+                document.getElementById("timer").innerHTML = timeString;
+            } else {
+                document.getElementById("timer").innerHTML = "Session expired!";
+                clearInterval(timerInterval);
+                localStorage.removeItem('endTime');
+            }
+        }
+
+        var timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    });
+
+    $(document).ready(function () {
+        $('#search').on('input', function () {
+            updateSuggestions();
+        });
+
+        $('#search').on('keydown', function (event) {
+            if (event.keyCode === 8) { // Backspace key
+                updateSuggestions();
+            }
+        });
+
+        function updateSuggestions() {
+            var search_term = $('#search').val();
+            $.ajax({
+                type: 'POST',
+                url: '{% url "get_spelling_suggestions" %}',
+                data: {
+                    'search_term': search_term,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.error) {
+                        alert(response.error);
+                        $('#search').prop('disabled', true);
+                        return;
+                    }
+
+                    var suggestions = response.suggestions;
+                    var suggestionsBox = $('#suggestions-box');
+                    suggestionsBox.empty();
+                    if (suggestions.length > 0) {
+                        $.each(suggestions, function (index, suggestion) {
+                            suggestionsBox.append('<div class="suggestion-item">' + suggestion + '</div>');
+                        });
+                        suggestionsBox.show();
+                    } else {
+                        suggestionsBox.hide();
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        $(document).on('click', '.suggestion-item', function () {
+            var suggestion = $(this).text();
+            $('#search').val(suggestion);
+            $('#suggestions-box').hide();
+        });
+    });
+</script>
+{% endblock %}

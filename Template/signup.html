@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>    <br>
+    <br>
+
+        <br>
+
+
+<div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 60vh;">
+    {% if messages %}
+    <div id="error-message-box" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px 20px; margin-bottom: 20px; border: 1px solid #f5c6cb; border-radius: 5px; font-size: 16px; text-align: center;">
+        <ul style="list-style: none; padding: 0;">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    <div style="width: 100%; max-width: 400px;">
+        <form action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="phone" style="display: block; margin-bottom: 5px;"><h4>Login ID</h4></label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="11 Digit Mobile No." style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="username" style="display: block; margin-bottom: 5px;"><h4>Your Name</h4></label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Your full name" style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="email" style="display: block; margin-bottom: 5px;"><h4>Email</h4></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="password" style="display: block; margin-bottom: 5px;"><h4>Password</h4></label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" style="width: 100%; padding: 8px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px 0; font-size: 1.2rem; border:none; border-radius:15px; background-color:dodgerblue">Sign Up</button>
+        </form>
+    </div>
+</div>    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+<script>
+    window.onload = function() {
+        var messageBox = document.getElementById('error-message-box');
+        if (messageBox.getElementsByTagName('li').length > 0) {
+            messageBox.style.display = 'block';
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}How to use{% endblock %}
+{% block body %}
+    {% if messages %}
+        <div class="alert alert-dark" role="alert">
+            <ul class="messages" style="color:darkgreen; margin-left: 500px; font-size:30px;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <br/>
+    <br/>
+    <br/>
+    <br/>    <br>
+    <br>
+
+    <br/>
+    <br/>
+    <h1 style="margin-left: 150px;"><b>How to Use</b></h1>
+    <hr/>
+    <h2 style="color: #0a6ebd; margin-left:150px;">
+    <br/>
+        <b>
+            1. SIGNUP using your mobile phone no. as login ID
+    <br/>
+            <br/>
+            2. Enter OTP collecting from your e-mail
+    <br/>
+            <br/>
+            3. Contact legal support provider (Mr. Iqbal) over phone or e-mail and get a consent code
+    <br/>
+            <br/>
+            4. Enter this consent code in the portal and enjoy the full features.
+
+        </b>
+    </h2>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+{% endblock %}
