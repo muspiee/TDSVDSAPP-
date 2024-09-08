@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}Home page{% endblock %}</title>
     <style>
         body, html {
@@ -9,7 +11,10 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            overflow-x: hidden; /* Prevent horizontal scrollbar */
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .navbar {
@@ -17,16 +22,32 @@
             overflow: hidden;
             padding: 10px 0;
             color: white;
-            position: fixed; /* Ensure the navbar is fixed at the top */
+            position: fixed;
             top: 0;
-            margin-bottom: 150px;
             width: 100%;
-            z-index: 1000; /* Ensure it appears above other content */
+            z-index: 1000;
+        }
+
+        .container-fluid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
         .navbar h1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             margin: 0;
-            text-align: center;
+            font-size: 30px;
+        }
+
+        .nav-links-left, .nav-links-right {
+            display: flex;
+            align-items: center;
         }
 
         .nav-link {
@@ -44,22 +65,13 @@
         }
 
         .container {
-            flex: 1; /* This makes the container take up the remaining space */
+            flex: 1;
             width: 100%;
-            max-width: 1200px; /* Ensures content does not stretch too wide on large screens */
+            max-width: 1200px;
             margin: 20px auto;
             padding: 0.5rem;
-            box-sizing: border-box; /* Ensures padding does not affect overall width */
-        }
-
-        footer {
-            position: fixed;
-            width: 100%;
-            top: 91%;
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            padding: 20px;
+            box-sizing: border-box;
+            padding-top: 120px; /* Ensure content does not hide behind navbar */
         }
 
         .sponsors {
@@ -69,12 +81,12 @@
             margin: 20px 0;
             position: relative;
             overflow: hidden;
-            height: 60px; /* Adjust based on your logo heights */
+            height: 60px;
         }
 
         .sponsor-logo {
             display: flex;
-            animation: slide 60s linear infinite; /* Increased duration and linear direction */
+            animation: slide 60s linear infinite;
         }
 
         .sponsor-logo img {
@@ -82,18 +94,20 @@
             margin: 0 10px;
         }
 
-        .web-name {
+        .footer {
+            background-color: #343a40;
             color: white;
-            font-size: 30px;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            margin-top: auto;
         }
 
-        /* Animation keyframes for continuous slide */
         @keyframes slide {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .navbar h1 {
                 font-size: 24px;
@@ -105,13 +119,13 @@
             }
 
             .container {
-                padding-top: 80px; /* Increase padding for smaller screens if needed */
+                padding-top: 80px;
             }
 
             .sponsors {
                 flex-direction: column;
                 align-items: center;
-                height: auto; /* Adjust height for better layout */
+                height: auto;
             }
 
             .sponsor-logo {
@@ -130,23 +144,21 @@
             }
 
             .container {
-                padding-top: 100px; /* Increase padding for the smallest screens */
+                padding-top: 100px;
             }
         }
     </style>
 </head>
-<body oncontextmenu="return false">
+<body>
 <nav class="navbar">
     <div class="container-fluid">
-        <h1 class="web-name">Tax & VAT Live Robot - Financial Year 2024-2025</h1>
-        <div>
+        <div class="nav-links-left">
             <a class="nav-link" href="{% url 'home' %}">Home/Search</a>
-            <a class="nav-link" href="{% url 'aboutus' %}">About us</a>
-            <a class="nav-link" href="{% url 'mission' %}">Mission & Vision</a>
-            <a class="nav-link" href="{% url 'how' %}">How it Works</a>
-            <a class="nav-link" href="{% url 'use' %}">How to Use</a>
-            <a class="nav-link" href="{% url 'what' %}">What to do after VDS & TDS</a>
-            <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+        </div>
+
+        <h1 class="web-name">Tax & VAT Live Robot  <br/> Financial Year. 2024-2025</h1>
+
+        <div class="nav-links-right">
             {% if not user.is_authenticated %}
                 <a class="nav-link" href="{% url 'login' %}">Login</a>
                 <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
@@ -173,8 +185,20 @@
 </section>
 {% endif %}
 
-<footer>
-    <p>&copy; 2024 Musyab Iqbal. All rights reserved.</p>
+<footer class="footer bg-neutral text-neutral-content p-10">
+    <nav>
+      <a class="link link-hover" href="{% url 'mission' %}">Mission & vision</a>
+      <a class="link link-hover" href="{% url 'use' %}">How to Use</a>
+      <a class="link link-hover" href="{% url 'what' %}">What to do after VDS & TDS</a>
+    </nav>
+    <nav>
+      <a class="link link-hover" href="{% url 'aboutus' %}">About us</a>
+      <a class="link link-hover" href="{% url 'contact' %}">Contact us</a>
+    </nav>
+    <nav>
+      <a class="link link-hover" href="{% url 'login' %}">Login</a>
+      <a class="link link-hover" href="{% url 'signup' %}">Sign Up</a>
+    </nav>
 </footer>
 
 <script>
@@ -191,5 +215,6 @@
         });
     });
 </script>
+
 </body>
 </html>
